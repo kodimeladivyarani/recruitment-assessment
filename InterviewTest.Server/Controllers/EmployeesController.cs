@@ -11,7 +11,7 @@ namespace InterviewTest.Server.Controllers
         private string ConnectionString =>
             new SqliteConnectionStringBuilder() { DataSource = "./SqliteDB.db" }.ToString();
 
-        // GET: List all employees
+        List all employees
         [HttpGet]
         public List<Employee> Get()
         {
@@ -39,7 +39,7 @@ namespace InterviewTest.Server.Controllers
             return employees;
         }
 
-        // POST: Add new employee
+        Add new employee
         [HttpPost]
         public IActionResult Add(Employee employee)
         {
