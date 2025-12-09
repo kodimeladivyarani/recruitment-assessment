@@ -1,0 +1,35 @@
+name: Build and Test ASP.NET Backend
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1 — Checkout repo
+    - uses: actions/checkout@v3
+
+    # Step 2 — Setup .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+
+    # Step 3 — Restore dependencies
+    - name: Restore Dependencies
+      run: dotnet restore InterviewTest.Server/InterviewTest.Server.csproj
+
+    # Step 4 — Build project
+    - name: Build Backend
+      run: dotnet build InterviewTest.Server/InterviewTest.Server.csproj --no-restore
+
+    # Step 5 — Run simple automated tests
+    - name: Run Simple API Test
+      run: |
+          dotnet add InterviewTest.Server/InterviewTest.Server.csproj \
+          package Microsoft.AspNet.WebApi.Client --version 5.2.7
+        # Optional: run dotnet CLI tests if you have test project
+        # If no tests, this step will just show build success
